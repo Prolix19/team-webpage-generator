@@ -1,0 +1,28 @@
+{
+  "name": "team-webpage-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prolix19/team-webpage-generator.git"
+  },
+  "author": "Daniel Birmingham",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Prolix19/team-webpage-generator/issues"
+  },
+  "homepage": "https://github.com/Prolix19/team-webpage-generator#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  }
+}
