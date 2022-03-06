@@ -1,8 +1,10 @@
+// Takes in the managers array and creates manager-related HTML from the zeroth index (since there is only ever one manager per team).
+// Note that email address hyperlinks are set to mailto:, so they will open the default email program, as requested.
 const generateManager = managers => {
-    return `<div class="employeeCard">
-    <div>
-    ${managers[0].getName()}<br />
-    ${managers[0].getRole()}
+    return `<div class="col-3 m-4">
+    <div class="cardHeader">
+    <h2>${managers[0].getName()}<br />
+    <i class="fa-solid fa-mug-hot"></i> ${managers[0].getRole()}</h2>
     </div>
     <p>ID: ${managers[0].getId()}</p>
     <p>Email: <a href="mailto:${managers[0].getEmail()}">${managers[0].getEmail()}</a></p>
@@ -10,16 +12,18 @@ const generateManager = managers => {
     </div>`
 };
 
+// If engineers exist in the engineers array, iterates over the array building out engineer-related HTML entries
+// Note that GitHub hyperlinks have the target attribute set to _blank, so they will open in a new browser tab, as requested.
 const generateEngineers = engineers => {
     if(engineers.length == 0) {
         return "";
     } else {
         let engineersHTML = ``;
         for(let i = 0; i < engineers.length; i++) {
-            engineersHTML += `<div class="employeeCard">
-            <div>
-            ${engineers[i].getName()}<br />
-            ${engineers[i].getRole()}
+            engineersHTML += `<div class="col-3 m-4">
+            <div class="cardHeader">
+            <h2>${engineers[i].getName()}<br />
+            <i class="fa-solid fa-glasses"></i> ${engineers[i].getRole()}</h2>
             </div>
             <p>ID: ${engineers[i].getId()}</p>
             <p>Email: <a href="mailto:${engineers[i].getEmail()}">${engineers[i].getEmail()}</a></p>
@@ -30,16 +34,17 @@ const generateEngineers = engineers => {
     }
 };
 
+// If interns exist in the interns array, iterates over the array building out intern-related HTML entries
 const generateInterns = interns => {
     if(interns.length == 0) {
         return "";
     } else {
         let internsHTML = ``;
         for(let i = 0; i < interns.length; i++) {
-            internsHTML += `<div class="employeeCard">
-            <div>
-            ${interns[i].getName()}<br />
-            ${interns[i].getRole()}
+            internsHTML += `<div class="col-3 m-4">
+            <div class="cardHeader">
+            <h2>${interns[i].getName()}<br />
+            <i class="fa-solid fa-graduation-cap"></i> ${interns[i].getRole()}</h2>
             </div>
             <p>ID: ${interns[i].getId()}</p>
             <p>Email: <a href="mailto:${interns[i].getEmail()}">${interns[i].getEmail()}</a></p>
@@ -50,6 +55,7 @@ const generateInterns = interns => {
     }
 };
 
+// Export an anonymous function that accepts the global arrays from index.js and returns complete webpage HTML
 module.exports = (managers, engineers, interns) => {
     return `<!DOCTYPE html>
 <html lang="en">
@@ -71,17 +77,15 @@ module.exports = (managers, engineers, interns) => {
 
     <body>
 
-        <header class="row">
-            <div class="col-12">
-                <h1>My Team</h1>
-            </div>
+        <header>
+            <h1 class="text-center">My Team</h1>
         </header>
 
-        <main>
-            <div class="row" id="cardHolder">
-                <p>${generateManager(managers)}</p>
-                <p>${generateEngineers(engineers)}</p>
-                <p>${generateInterns(interns)}</p>
+        <main class="container">
+            <div class="row justify-content-around">
+                    <p>${generateManager(managers)}</p>
+                    <p>${generateEngineers(engineers)}</p>
+                    <p>${generateInterns(interns)}</p>
             </div>
         </main>
 

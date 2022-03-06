@@ -1,9 +1,11 @@
+/* Just a couple of styles here, based upon the colors seen in the mock-up screenshot */
+
 header {
     background-color: #D75859;
     color: #FFFFFF;
-    text-align: center;
 }
 
-/* To do: add further styling */
-
-/* Card title color: 3176F1 */
+.cardHeader {
+    background-color: #3176F1;
+    color: #FFFFFF;
+}
