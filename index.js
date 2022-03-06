@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
+const generatePage = require("./src/html-template");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
@@ -235,29 +236,43 @@ const promptIntern = () => {
 const init = function() {
     promptManager()
     .then(() => {
-        // Temporary outputs to see the data gathered
-        for(let i = 0; i < managers.length; i++) {
-            console.log(managers[i].getRole());
-            console.log(managers[i].getName());
-            console.log(managers[i].getId());
-            console.log(managers[i].getEmail());
-            console.log(managers[i].getOfficeNumber());
-        };
-        for(let j = 0; j < engineers.length; j++) {
-            console.log(engineers[j].getRole());
-            console.log(engineers[j].getName());
-            console.log(engineers[j].getId());
-            console.log(engineers[j].getEmail());
-            console.log(engineers[j].getGithub());
-        };
-        for(let k = 0; k < interns.length; k++) {
-            console.log(interns[k].getRole());
-            console.log(interns[k].getName());
-            console.log(interns[k].getId());
-            console.log(interns[k].getEmail());
-            console.log(interns[k].getSchool());
-        };
-        // To do: take the data gathered and slam it into HTML
+        return generatePage(managers, engineers, interns);
+    })
+    .then(pageHTML => {
+        return new Promise((resolve, reject) => {
+            fs.writeFile("./dist/index.html", pageHTML, err => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+
+                resolve({
+                    ok: true,
+                    message: "Index.html created!"
+                });
+            });
+        });
+    })
+    .then(writeFileResponse => {
+        return new Promise((resolve, reject) => {
+            fs.copyFile("./src/style.css", "./dist/style.css", err => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+
+                resolve({
+                    ok: true,
+                    message: "Stylesheet created!"
+                });
+            });
+        });
+    })
+    .then(copyFileResponse => {
+        console.log("\nTeam webpage created! Please see the file index.html in the dist directory.")
+    })
+    .catch(err => {
+        console.log("Error: " + err);
     });
 };
 
